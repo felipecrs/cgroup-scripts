@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
 if [ -f /sys/fs/cgroup/cgroup.controllers ]; then
     echo "cgroup v2 detected." >&2
     if [ -f /sys/fs/cgroup/cpu.max ]; then
         read -r quota period </sys/fs/cgroup/cpu.max
-        if [ "$quota" == "max" ]; then
+        if [ "$quota" = "max" ]; then
             echo "No CPU limits set." >&2
             cpus=$(nproc --all)
         else
@@ -23,7 +23,7 @@ else
         quota=$(cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us)
         period=$(cat /sys/fs/cgroup/cpu/cpu.cfs_period_us)
 
-        if [ "$quota" == "-1" ]; then
+        if [ "$quota" = "-1" ]; then
             echo "No CPU limits set." >&2
             cpus=$(nproc --all)
         else
