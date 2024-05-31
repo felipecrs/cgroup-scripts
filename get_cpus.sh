@@ -20,7 +20,7 @@ if [ -f /sys/fs/cgroup/cgroup.controllers ]; then
             calc_cpus
         fi
     else
-        echo "Cannot determine cgroup CPU path." >&2
+        echo "/sys/fs/cgroup/cpu.max not found." >&2
     fi
 else
     echo "cgroup v1 detected." >&2
@@ -35,7 +35,7 @@ else
             calc_cpus
         fi
     else
-        echo "Cannot determine cgroup CPU path." >&2
+        echo "/sys/fs/cgroup/cpu/cpu.cfs_quota_us or /sys/fs/cgroup/cpu/cpu.cfs_period_us not found." >&2
     fi
 fi
 
