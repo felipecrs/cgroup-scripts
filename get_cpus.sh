@@ -63,6 +63,7 @@ main() {
         cpu_count=$(nproc)
     else
         cpu_count=$(calculate_cpu_count "$quota" "$period")
+        echo "nproc: $(nproc)"
     fi
 
     echo "Allocated CPUs: $cpu_count"
