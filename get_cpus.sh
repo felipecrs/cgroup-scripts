@@ -2,19 +2,25 @@
 
 set -eu
 
+calc_cpus() {
+    cpus=$((quota / period))
+    if [ "$cpus" -eq 0 ]; then
+        cpus=1
+    fi
+}
+
+cpus=""
 if [ -f /sys/fs/cgroup/cgroup.controllers ]; then
     echo "cgroup v2 detected." >&2
     if [ -f /sys/fs/cgroup/cpu.max ]; then
         read -r quota period </sys/fs/cgroup/cpu.max
         if [ "$quota" = "max" ]; then
             echo "No CPU limits set." >&2
-            cpus=$(nproc --all)
         else
-            cpus=$(awk -v q="$quota" -v p="$period" 'BEGIN { print q / p }')
+            calc_cpus
         fi
     else
         echo "Cannot determine cgroup CPU path." >&2
-        cpus=$(nproc --all)
     fi
 else
     echo "cgroup v1 detected." >&2
@@ -25,14 +31,16 @@ else
 
         if [ "$quota" = "-1" ]; then
             echo "No CPU limits set." >&2
-            cpus=$(nproc --all)
         else
-            cpus=$(awk -v q="$quota" -v p="$period" 'BEGIN { print q / p }')
+            calc_cpus
         fi
     else
         echo "Cannot determine cgroup CPU path." >&2
-        cpus=$(nproc --all)
     fi
+fi
+
+if [ -z "$cpus" ]; then
+    cpus=$(nproc --all)
 fi
 
 echo "CPUs: $cpus"
