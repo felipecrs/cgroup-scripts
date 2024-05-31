@@ -19,6 +19,7 @@ if [ -f /sys/fs/cgroup/cgroup.controllers ]; then
         else
             calc_cpus
         fi
+        unset quota period
     else
         echo "/sys/fs/cgroup/cpu.max not found." >&2
     fi
@@ -34,6 +35,7 @@ else
         else
             calc_cpus
         fi
+        unset quota period
     else
         echo "/sys/fs/cgroup/cpu/cpu.cfs_quota_us or /sys/fs/cgroup/cpu/cpu.cfs_period_us not found." >&2
     fi
