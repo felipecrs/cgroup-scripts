@@ -2,24 +2,14 @@
 
 set -eu
 
-calc_cpus() {
-    cpus=$((quota / period))
-    if [ "$cpus" -eq 0 ]; then
-        cpus=1
-    fi
-}
-
-cpus=""
 if [ -f /sys/fs/cgroup/cgroup.controllers ]; then
     echo "cgroup v2 detected." >&2
     if [ -f /sys/fs/cgroup/cpu.max ]; then
         read -r quota period </sys/fs/cgroup/cpu.max
         if [ "$quota" = "max" ]; then
             echo "No CPU limits set." >&2
-        else
-            calc_cpus
+            unset quota period
         fi
-        unset quota period
     else
         echo "/sys/fs/cgroup/cpu.max not found." >&2
     fi
@@ -32,17 +22,20 @@ else
 
         if [ "$quota" = "-1" ]; then
             echo "No CPU limits set." >&2
-        else
-            calc_cpus
+            unset quota period
         fi
-        unset quota period
     else
         echo "/sys/fs/cgroup/cpu/cpu.cfs_quota_us or /sys/fs/cgroup/cpu/cpu.cfs_period_us not found." >&2
     fi
 fi
 
-if [ -z "$cpus" ]; then
-    cpus=$(nproc --all)
+if [ -n "${quota:-}" ] && [ -n "${period:-}" ]; then
+    cpus=$((quota / period))
+    if [ "$cpus" -eq 0 ]; then
+        cpus=1
+    fi
+else
+    cpus=$(grep -c processor /proc/cpuinfo)
 fi
 
 echo "CPUs: $cpus"
