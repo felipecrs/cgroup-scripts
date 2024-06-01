@@ -1,6 +1,6 @@
-# cgroups-scripts
+# cgroup-scripts
 
-Set of scripts to get cgroups information within containers.
+Set of scripts to get cgroup limits information within containers.
 
 ## Examples
 
