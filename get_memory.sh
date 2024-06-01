@@ -18,10 +18,13 @@ else
 
     if [ -f /sys/fs/cgroup/memory/memory.limit_in_bytes ]; then
         memory_bytes=$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes)
-        if [ "$memory_bytes" = "-1" ]; then
+        memory_kb=$((memory_bytes / 1024))
+        memory_total_kb=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+        if [ "$memory_kb" -ge "$memory_total_kb" ]; then
             echo "No memory limits set." >&2
             unset memory_bytes
         fi
+        unset memory_kb memory_total_kb
     else
         echo "/sys/fs/cgroup/memory/memory.limit_in_bytes not found." >&2
     fi
