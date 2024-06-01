@@ -15,6 +15,14 @@ CPUs: 16
 ❯ cat get_cpus.sh | docker run --rm -i --cpus 2 ubuntu sh
 cgroup v2 detected.
 CPUs: 2
+
+❯ cat get_cpus.sh | docker run --rm -i --cpus 1.5 ubuntu sh
+cgroup v2 detected.
+CPUs: 1
+
+❯ cat get_cpus.sh | docker run --rm -i --cpus 0.5 ubuntu sh
+cgroup v2 detected.
+CPUs: 1
 ```
 
 Another system with cgroup v1:
