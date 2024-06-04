@@ -12,19 +12,23 @@ In a system with cgroup v2:
 ❯ cat get_cpus.sh | docker run --rm -i ubuntu sh
 cgroup v2 detected.
 No CPU limits set.
-CPUs: 16
+CPUs:
+16
 
 ❯ cat get_cpus.sh | docker run --rm -i --cpus 2 ubuntu sh
 cgroup v2 detected.
-CPUs: 2
+CPUs:
+2
 
 ❯ cat get_cpus.sh | docker run --rm -i --cpus 1.5 ubuntu sh
 cgroup v2 detected.
-CPUs: 1
+CPUs:
+1
 
 ❯ cat get_cpus.sh | docker run --rm -i --cpus 0.5 ubuntu sh
 cgroup v2 detected.
-CPUs: 1
+CPUs:
+1
 ```
 
 Another system with cgroup v1:
@@ -33,19 +37,23 @@ Another system with cgroup v1:
 ❯ cat get_cpus.sh | docker run --rm -i ubuntu sh
 cgroup v1 detected.
 No CPU limits set.
-CPUs: 8
+CPUs:
+8
 
 ❯ cat get_cpus.sh | docker run --rm -i --cpus 2 ubuntu sh
 cgroup v1 detected.
-CPUs: 2
+CPUs:
+2
 
 ❯ cat get_cpus.sh | docker run --rm -i --cpus 1.5 ubuntu sh
 cgroup v1 detected.
-CPUs: 1
+CPUs:
+1
 
 ❯ cat get_cpus.sh | docker run --rm -i --cpus 0.5 ubuntu sh
 cgroup v1 detected.
-CPUs: 1
+CPUs:
+1
 ```
 
 ### `get_memory.sh`
@@ -56,11 +64,13 @@ In a system with cgroup v2:
 ❯ cat get_memory.sh | docker run --rm -i ubuntu sh
 cgroup v2 detected.
 No memory limits set.
-Memory: 15996 MB
+Memory (MB):
+15996
 
 ❯ cat get_memory.sh | docker run --rm -i --memory 1g ubuntu sh
 cgroup v2 detected.
-Memory: 1024 MB
+Memory (MB):
+1024
 ```
 
 Another system with cgroup v1:
@@ -69,9 +79,21 @@ Another system with cgroup v1:
 ❯ cat get_memory.sh | docker run --rm -i ubuntu sh
 cgroup v1 detected.
 No memory limits set.
-Memory: 32092 MB
+Memory (MB):
+32092
 
 ❯ cat get_memory.sh | docker run --rm -i --memory 1g ubuntu sh
 cgroup v1 detected.
-Memory: 1024 MB
+Memory (MB):
+1024
+```
+
+If you just want to get the numbers, you can redirect `stderr` to `/dev/null`:
+
+```console
+❯ cat get_cpus.sh | docker run --rm -i --cpus 2 ubuntu sh 2>/dev/null
+2
+
+❯ cat get_memory.sh | docker run --rm -i --memory 1g ubuntu sh 2>/dev/null
+1024
 ```

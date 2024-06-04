@@ -38,4 +38,5 @@ else
     cpus=$(grep -c processor /proc/cpuinfo)
 fi
 
-echo "CPUs: $cpus"
+echo "CPUs:" >&2
+echo "$cpus"

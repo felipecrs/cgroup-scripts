@@ -38,4 +38,5 @@ else
     unset proc_memory_kb
 fi
 
-echo "Memory: $memory_mb MB"
+echo "Memory (MB):" >&2
+echo "$memory_mb"
