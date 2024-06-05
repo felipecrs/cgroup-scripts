@@ -16,24 +16,24 @@ In a system with cgroup v2:
 
 ```console
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true alpine sh
-cgroup v2 detected.
-No CPU limits set.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v2 detected.
+VERBOSE(get_cpus.sh): No CPU limits set.
+VERBOSE(get_cpus.sh): CPUs:
 16
 
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true --cpus 2 alpine sh
-cgroup v2 detected.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v2 detected.
+VERBOSE(get_cpus.sh): CPUs:
 2
 
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true --cpus 1.5 alpine sh
-cgroup v2 detected.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v2 detected.
+VERBOSE(get_cpus.sh): CPUs:
 1
 
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true --cpus 0.5 alpine sh
-cgroup v2 detected.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v2 detected.
+VERBOSE(get_cpus.sh): CPUs:
 1
 ```
 
@@ -41,24 +41,24 @@ Another system with cgroup v1:
 
 ```console
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true alpine sh
-cgroup v1 detected.
-No CPU limits set.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v1 detected.
+VERBOSE(get_cpus.sh): No CPU limits set.
+VERBOSE(get_cpus.sh): CPUs:
 8
 
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true --cpus 2 alpine sh
-cgroup v1 detected.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v1 detected.
+VERBOSE(get_cpus.sh): CPUs:
 2
 
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true --cpus 1.5 alpine sh
-cgroup v1 detected.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v1 detected.
+VERBOSE(get_cpus.sh): CPUs:
 1
 
 ❯ cat get_cpus.sh | docker run --rm -i -e VERBOSE=true --cpus 0.5 alpine sh
-cgroup v1 detected.
-CPUs:
+VERBOSE(get_cpus.sh): cgroup v1 detected.
+VERBOSE(get_cpus.sh): CPUs:
 1
 ```
 
@@ -68,14 +68,14 @@ In a system with cgroup v2:
 
 ```console
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true alpine sh
-cgroup v2 detected.
-No memory limits set.
-Memory (MB):
+VERBOSE(get_cpus.sh): cgroup v2 detected.
+VERBOSE(get_cpus.sh): No memory limits set.
+VERBOSE(get_cpus.sh): Memory (MB):
 15996
 
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true --memory 1g alpine sh
-cgroup v2 detected.
-Memory (MB):
+VERBOSE(get_cpus.sh): cgroup v2 detected.
+VERBOSE(get_cpus.sh): Memory (MB):
 1024
 ```
 
@@ -83,13 +83,13 @@ Another system with cgroup v1:
 
 ```console
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true alpine sh
-cgroup v1 detected.
-No memory limits set.
+VERBOSE(get_cpus.sh): cgroup v1 detected.
+VERBOSE(get_cpus.sh): No memory limits set.
 Memory (MB):
 32092
 
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true --memory 1g alpine sh
-cgroup v1 detected.
-Memory (MB):
+VERBOSE(get_cpus.sh): cgroup v1 detected.
+VERBOSE(get_cpus.sh): Memory (MB):
 1024
 ```
