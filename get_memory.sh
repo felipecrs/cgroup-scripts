@@ -8,12 +8,12 @@ fi
 
 verbose() {
   if [ "${VERBOSE:-}" = true ]; then
-    echo "VERBOSE(get_cpus.sh):" "$@" >&2
+    echo "VERBOSE(get_memory.sh):" "$@" >&2
   fi
 }
 
 warning() {
-  echo "WARNING(get_cpus.sh):" "$@" >&2
+  echo "WARNING(get_memory.sh):" "$@" >&2
 }
 
 if [ -f /sys/fs/cgroup/cgroup.controllers ]; then
