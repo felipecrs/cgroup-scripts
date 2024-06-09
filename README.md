@@ -68,14 +68,14 @@ In a system with cgroup v2:
 
 ```console
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true alpine sh
-VERBOSE(get_cpus.sh): cgroup v2 detected.
-VERBOSE(get_cpus.sh): No memory limits set.
-VERBOSE(get_cpus.sh): Memory (MB):
+VERBOSE(get_memory.sh): cgroup v2 detected.
+VERBOSE(get_memory.sh): No memory limits set.
+VERBOSE(get_memory.sh): Memory (MB):
 15996
 
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true --memory 1g alpine sh
-VERBOSE(get_cpus.sh): cgroup v2 detected.
-VERBOSE(get_cpus.sh): Memory (MB):
+VERBOSE(get_memory.sh): cgroup v2 detected.
+VERBOSE(get_memory.sh): Memory (MB):
 1024
 ```
 
@@ -83,13 +83,13 @@ Another system with cgroup v1:
 
 ```console
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true alpine sh
-VERBOSE(get_cpus.sh): cgroup v1 detected.
-VERBOSE(get_cpus.sh): No memory limits set.
+VERBOSE(get_memory.sh): cgroup v1 detected.
+VERBOSE(get_memory.sh): No memory limits set.
 Memory (MB):
 32092
 
 ❯ cat get_memory.sh | docker run --rm -i -e VERBOSE=true --memory 1g alpine sh
-VERBOSE(get_cpus.sh): cgroup v1 detected.
-VERBOSE(get_cpus.sh): Memory (MB):
+VERBOSE(get_memory.sh): cgroup v1 detected.
+VERBOSE(get_memory.sh): Memory (MB):
 1024
 ```

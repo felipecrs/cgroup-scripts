@@ -32,7 +32,7 @@ function expect() {
 
 "${docker_cmd[@]}" --cpus 2 alpine ./get_cpus.sh | expect 2
 
-"${docker_cmd[@]}" --cpus 0.5 alpine ./get_cpus.sh | expect 1
+"${docker_cmd[@]}" --cpus 0.5 ubuntu ./get_cpus.sh | expect 1
 
 "${docker_cmd[@]}" --cpus 1.5 alpine ./get_cpus.sh | expect 1
 
