@@ -7,7 +7,7 @@ readonly script_dir
 
 cd "$script_dir/.."
 
-machine_cpus=$(grep -c processor /proc/cpuinfo)
+machine_cpus=$(grep -c ^processor /proc/cpuinfo)
 
 docker_cmd=(docker run --rm -v "${PWD}:${PWD}" -w "${PWD}" -e VERBOSE -e DEBUG)
 
