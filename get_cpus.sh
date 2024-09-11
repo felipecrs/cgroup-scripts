@@ -20,7 +20,7 @@ if [ -f /sys/fs/cgroup/cgroup.controllers ]; then
   verbose "cgroup v2 detected."
   if [ -f /sys/fs/cgroup/cpu.max ]; then
     read -r quota period </sys/fs/cgroup/cpu.max
-    if [ "$quota" = "max" ]; then
+    if [ "${quota}" = "max" ]; then
       verbose "No CPU limits set."
       unset quota period
     fi
@@ -34,7 +34,7 @@ else
     quota=$(cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us)
     period=$(cat /sys/fs/cgroup/cpu/cpu.cfs_period_us)
 
-    if [ "$quota" = "-1" ]; then
+    if [ "${quota}" = "-1" ]; then
       verbose "No CPU limits set."
       unset quota period
     fi
@@ -43,9 +43,16 @@ else
   fi
 fi
 
+# This is theoretically not possible, but:
+# https://github.com/blakeblackshear/frigate/discussions/11755#discussioncomment-10304356
+if [ -n "${period:-}" ] && [ "${period:-}" -eq 0 ]; then
+  warning "CPU period is 0. Falling back to /proc/cpuinfo."
+  unset quota period
+fi
+
 if [ -n "${quota:-}" ] && [ -n "${period:-}" ]; then
   cpus=$((quota / period))
-  if [ "$cpus" -eq 0 ]; then
+  if [ "${cpus}" -eq 0 ]; then
     cpus=1
   fi
 else
@@ -53,4 +60,4 @@ else
 fi
 
 verbose "CPUs:"
-printf '%s' "$cpus"
+printf '%s' "${cpus}"
