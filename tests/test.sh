@@ -24,6 +24,12 @@ function expect() {
   fi
 }
 
+## is_privileged.sh tests
+"${docker_cmd[@]}" alpine sh -c './is_privileged.sh; echo $?' | expect 1
+"${docker_cmd[@]}" --privileged alpine sh -c './is_privileged.sh; echo $?' | expect 0
+"${docker_cmd[@]}" ubuntu sh -c './is_privileged.sh; echo $?' | expect 1
+"${docker_cmd[@]}" --privileged ubuntu sh -c './is_privileged.sh; echo $?' | expect 0
+
 ## get_cpus.sh test
 machine_cpus=$(grep -c ^processor /proc/cpuinfo)
 
