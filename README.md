@@ -2,6 +2,25 @@
 
 Set of scripts to get cgroup limits information within containers.
 
+## Installation
+
+You can add the scripts to your images like this:
+
+```Dockerfile
+FROM alpine
+
+ARG CGROUP_SCRIPTS_VERSION=0.1.0
+ADD --chmod=755 https://github.com/felipecrs/cgroup-scripts/raw/v${CGROUP_SCRIPTS_VERSION}/get_cpus.sh /opt/cgroup-scripts/
+ADD --chmod=755 https://github.com/felipecrs/cgroup-scripts/raw/v${CGROUP_SCRIPTS_VERSION}/get_memory.sh /opt/cgroup-scripts/
+```
+
+And then, you can invoke them by calling the scripts directly, like:
+
+```console
+❯ docker run --rm --cpus 2 my-image /opt/cgroup-scripts/get_cpus.sh
+2
+```
+
 ## Examples
 
 All scripts will print the requested information to `stdout`. Any unexpected behavior will be printed to `stderr`.
